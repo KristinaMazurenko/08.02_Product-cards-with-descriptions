@@ -3,7 +3,7 @@ import { create } from "zustand";
 export const useBasketList = create((set) => ({
   basket: [],
 
-  // ➕ Добавить товар
+  // Добавить товар
   addToBasket: (product) =>
     set((state) => {
       // Проверяем — есть ли уже товар
