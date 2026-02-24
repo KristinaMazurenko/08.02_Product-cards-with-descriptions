@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { products } from "../assets/products";
+import { useProductsStore } from "../store/useProductsStore";
 import ProductCard from "../components/ProductCard";
 
 function Home() {
+  const products = useProductsStore((state) => state.products);
+
   return (
     <div>
       {/* Ссылка на корзину */}
@@ -14,9 +16,13 @@ function Home() {
 
       {/* Список товаров */}
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {products.length === 0 ? (
+          <p>Товары пока не добавлены</p>
+        ) : (
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        )}
       </div>
     </div>
   );

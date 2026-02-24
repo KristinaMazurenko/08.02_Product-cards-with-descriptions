@@ -1,17 +1,27 @@
 import { useParams } from "react-router-dom";
-import { products } from "../assets/products";
+import { useProductsStore } from "../store/useProductsStore";
 
 function CardDetails() {
   const { id } = useParams();
-  const product = products.find(item => item.id === Number(id));
+  const products = useProductsStore((state) => state.products);
 
-  if (!product) return <h2>Товар не найден</h2>;
+  const product = products.find(
+    (p) => p.id === Number(id)
+  );
+
+  if (!product) {
+    return <h2>Товар не найден</h2>;
+  }
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Детали товара</h1>
-      <img src={product.image} width={250} />
+      <img
+        src={product.image}
+        alt={product.title}
+        style={{ width: 300 }}
+      />
       <h2>{product.title}</h2>
+      <p>Категория: {product.category}</p>
       <p>Цена: {product.price}$</p>
       <p>{product.description}</p>
     </div>
